@@ -6,10 +6,16 @@
 <head>
 <title>Student Manager</title>
 <link href="https://unpkg.com/bootstrap@4.1.0/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<style>
+.parent .h2
+{
+	padding: 2cm;
+}
+</style>
 </head>
 
 <body>
-<div align="center">
+<div class="parent" align="center">
     <h2>Student Manager</h2>
     <form method="get" action="search">
         <input type="text" name="keyword" /> &nbsp;
