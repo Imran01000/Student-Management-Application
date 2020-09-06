@@ -3,8 +3,12 @@ package com.springmvc.student.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,10 +41,19 @@ public class StudentController
 	}
 	
 	@RequestMapping(value = "/save", method =RequestMethod.POST )
-	public String saveStudent(@ModelAttribute("student") Student student)
+	public String saveStudent(@Valid @ModelAttribute("student") Student student,  BindingResult theBindingResult)
 	{
-		service.save(student);
-		return "redirect:/";
+
+		if(theBindingResult.hasErrors())
+		{
+			return "new-student";
+		}
+		else
+		{
+			System.out.println(theBindingResult.hasErrors());
+			service.save(student);
+			return "redirect:/";
+		}
 	}
 	
 	@RequestMapping(value = "/edit")
@@ -58,4 +71,6 @@ public class StudentController
 		service.delete(id);
 		return "redirect:/";
 	}
+	
+	
 }
